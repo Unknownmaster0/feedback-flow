@@ -9,7 +9,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { ApiResonseInterface } from "@/types/ApiResponse";
@@ -73,7 +72,7 @@ const page = () => {
         setLoadingWhileValidatingUser(false);
       }
     })();
-  }, [setUser, setLoadingWhileValidatingUser]);
+  }, [setUser, setLoadingWhileValidatingUser, userName]);
 
   const onSubmit = async (value: z.infer<typeof messageZodSchema>) => {
     if (user && !user?.isAcceptingMessage) {
@@ -134,7 +133,9 @@ const page = () => {
                   name="content"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="sm:text-lg md:text-xl">Message</FormLabel>
+                      <FormLabel className="sm:text-lg md:text-xl">
+                        Message
+                      </FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Type your message here..."

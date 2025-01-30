@@ -30,7 +30,7 @@ const page = () => {
   const [userNameMessage, setUserNameMessage] = useState("");
   const [loadingSubmit, setloadingSubmit] = useState(false);
 
-  const [debounceUserName, setDebounceUserName] = useDebounceValue(
+  const [debounceUserName, _] = useDebounceValue(
     userName,
     1000
   );

@@ -1,8 +1,6 @@
 "use client";
 
 import MessageCard from "@/components/MessageCard";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
@@ -20,14 +18,13 @@ import { z } from "zod";
 const Dashboard = () => {
   const [messages, setMessages] = useState<MessageInterface[]>([]);
   const [isLoadingMsg, setIsLoadingMsg] = useState(false);
-  const [isAcceptingMessageStatusLoading, setIsAcceptingMessageStatusLoading] =
-    useState(false);
+  const [_, setIsAcceptingMessageStatusLoading] = useState(false);
   const [
     loadingWhileToggleAcceptingMessage,
     setloadingWhileToggleAcceptingMessage,
   ] = useState(false);
 
-  const { session, loadingWhileGettingSession, status } = useGetSession();
+  const { session, status } = useGetSession();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof isAcceptingMessageSchema>>({
@@ -150,21 +147,6 @@ const Dashboard = () => {
     }
   };
 
-  let userName: string | undefined;
-  let profileUrl: string | undefined;
-  if (session) {
-    userName = session?.user.userName;
-    profileUrl = `${window.location.protocol}://${window.location.host}/u/${userName}`;
-  }
-
-  // const copyToClipboard = () => {
-  //   profileUrl && navigator.clipboard.writeText(profileUrl);
-  //   toast({
-  //     title: "Url copied",
-  //     description: "Profile url is copied to clipboard",
-  //   });
-  // };
-
   const onDeleteMessage = (msgId: string) => {
     setMessages((prevMsg) => prevMsg.filter((msg) => msg._id != msgId));
   };
@@ -176,7 +158,10 @@ const Dashboard = () => {
   return (
     <>
       <Separator className="" />
-      <form onSubmit={form.handleSubmit(toggleIsAcceptingMessage)} className="sm:p-2 lg:p-4 text-lg">
+      <form
+        onSubmit={form.handleSubmit(toggleIsAcceptingMessage)}
+        className="sm:p-2 lg:p-4 text-lg"
+      >
         <Controller
           name="isAcceptingMessage"
           control={control}
