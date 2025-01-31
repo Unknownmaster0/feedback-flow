@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 const useGetSession = () => {
   const { data: session, status } = useSession();
   const [customCookie, setCustomCookie] = useState(null);
-  // const [loadingWhileGettingSession, setloadingWhileGettingSession] =
-  // useState(true);
+  const [loadingWhileGettingSession, setloadingWhileGettingSession] =
+    useState(true);
 
   useEffect(() => {
     // go to backend and get the custom cookie.
@@ -27,18 +27,16 @@ const useGetSession = () => {
         // const axiosError = error as AxiosError<ApiResonseInterface>;
         // const status = axiosError.status as number;
         // status < 500 ? "Request error" : "Server error",
+      } finally {
+        setloadingWhileGettingSession(false);
       }
-      // finally {
-      //   setloadingWhileGettingSession(false);
-      // }
     };
 
     if (!session) {
       fetchSession();
+    } else {
+      setloadingWhileGettingSession(false);
     }
-    // else{
-    //   setloadingWhileGettingSession(false);
-    // }
   }, [setCustomCookie, session]);
 
   return {
@@ -48,7 +46,7 @@ const useGetSession = () => {
       : customCookie
         ? "authenticated"
         : "unauthenticated",
-    // loadingWhileGettingSession,
+    loadingWhileGettingSession,
   };
 };
 

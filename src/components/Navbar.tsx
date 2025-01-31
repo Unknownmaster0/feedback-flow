@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelopeOpenText } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +24,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isSendMessagePage, setIsSendMessagePage] = useState(false);
   const [serverSession, setServerSession] = useState(null);
-  const [userDropDownMenu, setUserDropDownMenu] = useState(false);
+  const [_, setUserDropDownMenu] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
   const { session, loadingWhileGettingSession, status } = useGetSession();
