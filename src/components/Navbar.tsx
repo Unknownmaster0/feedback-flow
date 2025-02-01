@@ -78,7 +78,7 @@ const Navbar = () => {
         <Link href="/" className="flex items-center">
           <FontAwesomeIcon icon={faEnvelopeOpenText} className="lg:text-2xl" />
           <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight hidden md:flex">
-            Incognito Feedback
+            {process.env.SMTP_COMANY}
           </span>
           <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight md:hidden">
             IF
