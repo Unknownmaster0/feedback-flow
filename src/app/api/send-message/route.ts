@@ -105,7 +105,7 @@ export async function POST(req: Request) {
       });
 
       await session.commitTransaction();
-    } catch (error: any) {
+    } catch (error) {
       if (session.inTransaction()) await session.abortTransaction();
       sendResponse({ success: false, message: error as string }, 500);
     } finally {
@@ -119,12 +119,12 @@ export async function POST(req: Request) {
       },
       200
     );
-  } catch (error: any) {
+  } catch (error) {
     console.log("error while sending message in catch: ", error);
     return sendResponse(
       {
         success: false,
-        message: error?.message || "internal server error",
+        message: "internal server error",
       },
       500
     );

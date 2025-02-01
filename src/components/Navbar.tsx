@@ -19,29 +19,35 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { SessionPayload } from "@/types/definitions";
+import Link from "next/link";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isSendMessagePage, setIsSendMessagePage] = useState(false);
-  const [serverSession, setServerSession] = useState(null);
-  const [_, setUserDropDownMenu] = useState(false);
+  const [serverSession, setServerSession] = useState<SessionPayload | null>(
+    null
+  );
+  const [, setUserDropDownMenu] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
-  const { session, loadingWhileGettingSession, status } = useGetSession();
+  const { session, loadingWhileGettingSession } = useGetSession();
 
   // console.log("server session: ", serverSession);
 
   useEffect(() => {
     setIsSendMessagePage(pathname.startsWith("/u/"));
-  }, [setIsSendMessagePage]);
+  }, [setIsSendMessagePage, pathname]);
 
   useEffect(() => {
-    setServerSession(session);
+    if (session && session.user && session.user.id) {
+      setServerSession(session as SessionPayload);
+    }
   }, [session]); //todo: correct the type error later.
 
   async function onClickHandler() {
     try {
-      const response = (
+      const _response = (
         await axios.delete<ApiResonseInterface>(`/api/delete-session`)
       ).data;
       setServerSession(null);
@@ -69,7 +75,7 @@ const Navbar = () => {
     <nav className="bg-white dark:bg-gray-900 border-transparent">
       {/* APP NAME BAR ON NAV-BAR */}
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <FontAwesomeIcon icon={faEnvelopeOpenText} className="lg:text-2xl" />
           <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight hidden md:flex">
             Incognito Feedback
@@ -77,7 +83,7 @@ const Navbar = () => {
           <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight md:hidden">
             IF
           </span>
-        </a>
+        </Link>
         {isSendMessagePage ? (
           <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-900 sm:font-bold">
             Public Profile URL
@@ -86,7 +92,7 @@ const Navbar = () => {
           <>
             {loadingWhileGettingSession ? (
               <>
-                <Loader2 /> Please Wait
+                <Loader2 className="animate-spin" /> Please Wait
               </>
             ) : (
               <div>
@@ -129,7 +135,7 @@ function MenuBar({ text }: { text: string }) {
   return (
     <Menubar className="shadow-lg">
       <MenubarMenu>
-        <MenubarTrigger>{text}</MenubarTrigger>
+        <MenubarTrigger className="cursor-pointer">{text}</MenubarTrigger>
         <MenubarContent>
           <MenubarItem onClick={() => pathHandler(1)}>HOME</MenubarItem>
           <MenubarSeparator />

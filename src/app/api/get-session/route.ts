@@ -1,26 +1,36 @@
 import { decrypt } from "@/lib/session";
+import { SessionPayload } from "@/types/definitions";
 import sendResponse from "@/utils/Response";
 import { cookies } from "next/headers";
 
-export async function GET(req: Request) {
+export async function GET() {
   const cookieStore = cookies();
-  const sessionCookie = (await cookieStore).get("session")?.value;
+  const sessionCookie = (await cookieStore).get("session-token")?.value;
 
-  if (!sessionCookie) {
+  if (!sessionCookie || sessionCookie == "") {
     return sendResponse(
-      { success: false, message: "You are not logged in" },
+      { success: false, message: "Not having custom cookie" },
       200
     );
   }
+  console.log("session cookie in get session: " + sessionCookie);
 
   try {
-    const session = await decrypt(sessionCookie);
-
+    const session: SessionPayload | null = await decrypt(sessionCookie);
+    if (!session || session == null) {
+      return sendResponse(
+        {
+          success: false,
+          message: "Don't have custom cookie",
+        },
+        204
+      );
+    }
     return sendResponse(
       {
         success: true,
         message: "Session send successfully 🎉🎉",
-        data: { session }, //todo: think of the actual type has to give.
+        data: { session },
       },
       200
     );

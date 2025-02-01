@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const page = () => {
+const UserMessageInterface = () => {
   const queryParams = useParams<{ userName: string }>();
   const userName = queryParams.userName;
 
@@ -72,7 +72,7 @@ const page = () => {
         setLoadingWhileValidatingUser(false);
       }
     })();
-  }, [setUser, setLoadingWhileValidatingUser, userName]);
+  }, [setUser, setLoadingWhileValidatingUser, userName, toast]);
 
   const onSubmit = async (value: z.infer<typeof messageZodSchema>) => {
     if (user && !user?.isAcceptingMessage) {
@@ -170,4 +170,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserMessageInterface;

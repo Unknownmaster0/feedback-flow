@@ -14,4 +14,6 @@
 
 7. update the signup method, that is for the signup also you need to use the next-auth feature only. This will resolve all the session releated type error then.
 
+8. remove the custom inteface of session.
+
 last: check the css property for the dynamic nature of the app (web/mobile/tablet) based all.

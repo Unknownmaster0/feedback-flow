@@ -81,9 +81,9 @@ export async function POST(req: Request) {
 
     const session = await createSession(
       user._id as string,
-      user.email,
       user.userName,
-      user.isAcceptingMessage
+      user.isAcceptingMessage,
+      user.isVerified
     );
 
     return sendResponse(
@@ -93,15 +93,15 @@ export async function POST(req: Request) {
       },
       200,
       {
-        "Set-Cookie": `session=${session}; HttpOnly; Secure; Path=/; SameSite=Lax;`,
+        "Set-Cookie": `session-token=${session}; Path=/; HttpOnly; Max-Age=86400; SameSite=Strict`,
       }
     );
-  } catch (error: any) {
+  } catch (error) {
     log("error while verifying otp from database ", error);
     return sendResponse(
       {
         success: false,
-        message: "userName expected from query params" + error.message,
+        message: "userName expected from query params",
       },
       500
     );

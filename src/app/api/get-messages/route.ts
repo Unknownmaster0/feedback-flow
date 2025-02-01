@@ -1,23 +1,11 @@
 import connectDb from "@/lib/db";
-import { authOptions } from "../auth/[...nextauth]/options";
-import { getServerSession } from "next-auth";
 import User from "@/models/models";
 import mongoose from "mongoose";
 import sendResponse from "@/utils/Response";
-import { log } from "console";
-import { decrypt } from "@/lib/session";
-import { cookies } from "next/headers";
-
-export async function getSession() {
-  const cookieStore = cookies();
-  const cookieSession = (await cookieStore).get("session")?.value;
-  const authPayload = await getServerSession(authOptions);
-  const cookiePayload = await decrypt(cookieSession);
-  return authPayload || cookiePayload; //todo: here saying that one of the two must be there but need to check explicitely later
-}
+import { getSession } from "@/utils/getSession";
 
 // get request to know the current "isAcceptingMessages" status
-export async function GET(req: Request) {
+export async function GET() {
   await connectDb();
 
   // * learning = How to get the session in the next-auth
@@ -44,7 +32,7 @@ export async function GET(req: Request) {
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
 
-    log("user from db in get-messages: ", user);
+    // log("user from db in get-messages: ", user);
 
     if (!user) {
       return sendResponse(

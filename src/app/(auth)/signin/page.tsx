@@ -21,7 +21,7 @@ import { z } from "zod";
 import { signIn } from "next-auth/react";
 import { TopBar } from "@/components/TopBar";
 
-const page = () => {
+const Signinform = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
@@ -138,4 +138,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Signinform;

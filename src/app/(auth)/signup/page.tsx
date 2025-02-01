@@ -23,14 +23,14 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { TopBar } from "@/components/TopBar";
 
-const page = () => {
+const Signupform = () => {
   const [userName, setUserName] = useState("");
   const [loadingVerifyingUsername, setLoadingVerifyingUsername] =
     useState(false);
   const [userNameMessage, setUserNameMessage] = useState("");
   const [loadingSubmit, setloadingSubmit] = useState(false);
 
-  const [debounceUserName, _] = useDebounceValue(
+  const [debounceUserName, ] = useDebounceValue(
     userName,
     1000
   );
@@ -77,7 +77,7 @@ const page = () => {
     setloadingSubmit(true);
     try {
       const response = (await axios.post("/api/signUp", value)).data;
-      console.log(response);
+      // console.log(response);
       if (!response.success) {
         // todo: check when the signup response is not success.
         toast({
@@ -218,4 +218,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Signupform;

@@ -5,8 +5,6 @@ import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 
-// log("auth secret in option.ts: ", process.env.AUTH_SECRET);
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -45,9 +43,9 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Wrong password");
           }
           return user; // FINALLY RETURN THE USER.
-        } catch (error: any) {
+        } catch (error) {
           log("error while next-auth option", error);
-          throw new Error(error);
+          throw new Error(error as string);
         }
       },
     }),

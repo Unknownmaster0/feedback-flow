@@ -18,7 +18,7 @@ import { z } from "zod";
 const Dashboard = () => {
   const [messages, setMessages] = useState<MessageInterface[]>([]);
   const [isLoadingMsg, setIsLoadingMsg] = useState(false);
-  const [_, setIsAcceptingMessageStatusLoading] = useState(false);
+  const [, setIsAcceptingMessageStatusLoading] = useState(false);
   const [
     loadingWhileToggleAcceptingMessage,
     setloadingWhileToggleAcceptingMessage,
@@ -65,7 +65,7 @@ const Dashboard = () => {
         setIsAcceptingMessageStatusLoading(false);
       }
     })();
-  }, [reset]);
+  }, [reset, toast]);
 
   const fetchAllMessages = useCallback(
     (refresh: boolean = false) => {
@@ -102,7 +102,7 @@ const Dashboard = () => {
         }
       })();
     },
-    [setMessages, setIsLoadingMsg]
+    [setMessages, setIsLoadingMsg, toast]
   );
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const Dashboard = () => {
     }
     fetchAllMessages(true); //* check here passing refresh=true option to see the toast
     fetchIsAcceptingMessage();
-  }, [session, setMessages]);
+  }, [session, setMessages, fetchAllMessages, fetchIsAcceptingMessage]);
 
   // toggle-isAcceptingMessage
   const toggleIsAcceptingMessage = async (
@@ -120,7 +120,7 @@ const Dashboard = () => {
   ) => {
     setloadingWhileToggleAcceptingMessage(true);
     try {
-      const response = (
+      const _response = (
         await axios.post<ApiResonseInterface>(`/api/accepting-messages`, {
           isAcceptingMessage: data.isAcceptingMessage,
         })
@@ -169,7 +169,7 @@ const Dashboard = () => {
             <div className="flex items-center space-x-2">
               {loadingWhileToggleAcceptingMessage ? (
                 <>
-                  <Loader2 />
+                  <Loader2 className="animate-spin" />
                   Please Wait
                 </>
               ) : (

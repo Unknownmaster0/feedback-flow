@@ -55,12 +55,12 @@ export async function GET(req: Request) {
       },
       200
     );
-  } catch (error: any) {
+  } catch (error) {
     log("error while getting userName from db ", error);
     return sendResponse(
       {
         success: false,
-        message: error?.message || "error while getting userName from db",
+        message: "error while getting userName from db",
       },
       500
     );

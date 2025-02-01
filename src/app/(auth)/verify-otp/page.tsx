@@ -17,12 +17,30 @@ import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const page = () => {
+const VerifyOtpInterface = () => {
   const [loadingSubmit, setloadingSubmit] = useState(false);
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyForm
+        loadingSubmit={loadingSubmit}
+        setloadingSubmit={setloadingSubmit}
+      />
+    </Suspense>
+  );
+};
+
+const VerifyForm = ({
+  loadingSubmit,
+  setloadingSubmit,
+}: {
+  loadingSubmit: boolean;
+  setloadingSubmit: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const queryParams = useSearchParams();
   const userName = queryParams.get("userName");
 
@@ -110,4 +128,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default VerifyOtpInterface;

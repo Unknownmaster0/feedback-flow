@@ -62,8 +62,9 @@ export default function Home() {
         setLoadingWhileGettingUser(false);
       }
     })();
-  }, [setUsers]);
+  }, [setUsers, toast]);
 
+  // to avoid the hydration issue of the react and next.js. the content don't match with pre-rendered and server side content sent.
   if (typeof window === "undefined") {
     return (
       <>

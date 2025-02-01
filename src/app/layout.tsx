@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
+import CustomSessionProvider from "@/context/CustomsessionProvider";
 import { Separator } from "@/components/ui/separator";
 
 const geistSans = Geist({
@@ -26,20 +27,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
   return (
     <AuthProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <Navbar/>
-          <Separator className="border-2"/>
-          {children}
-          <Toaster />
-        </body>
-      </html>
+      <CustomSessionProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <Navbar />
+            <Separator className="border-2" />
+            {children}
+            <Toaster />
+          </body>
+        </html>
+      </CustomSessionProvider>
     </AuthProvider>
   );
 }

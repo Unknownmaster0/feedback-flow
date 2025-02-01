@@ -1,14 +1,13 @@
 import connectDb from "@/lib/db";
 import User from "@/models/models";
 import sendResponse from "@/utils/Response";
-import { getSession } from "../get-messages/route";
+import { getSession } from "@/utils/getSession";
 
 // get request to know the current "isAcceptingMessages" status
-export async function GET(req: Request) {
+export async function GET() {
   await connectDb();
   // * learning = How to get the session in the next-auth
   const session = await getSession();
-  // console.log(`session in accepting msg: `, session)
   if (!session || !session.user) {
     return sendResponse(
       {
@@ -20,7 +19,7 @@ export async function GET(req: Request) {
   }
   const user = session.user; // this is the next-auth "User"
 
-  // get the user from db having id = user._id
+  // get the user from db having id = user.id
   try {
     const foundUser = await User.findById({ _id: user.id });
     if (!foundUser) {
@@ -68,8 +67,9 @@ export async function POST(req: Request) {
       400
     );
   }
+
   const user = session.user; // this is the next-auth "User"
-  // get the user from db having id = user._id
+  // get the user from db having id = user.id
   try {
     const foundUser = await User.findByIdAndUpdate(
       { _id: user.id },

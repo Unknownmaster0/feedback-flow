@@ -1,11 +1,13 @@
+import { CustomSessionContext } from "@/context/CustomsessionProvider";
 import { ApiResonseInterface } from "@/types/ApiResponse";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const useGetSession = () => {
   const { data: session, status } = useSession();
-  const [customCookie, setCustomCookie] = useState(null);
+  // const [customCookie, setCustomCookie] = useState(null);
+  const { customSession, setCustomSession } = useContext(CustomSessionContext);
   const [loadingWhileGettingSession, setloadingWhileGettingSession] =
     useState(true);
 
@@ -20,7 +22,7 @@ const useGetSession = () => {
         ).data;
 
         if (response.success && response.data?.session) {
-          setCustomCookie(response.data?.session); //todo: type error as I have set the ApiResponse type of data: any, do change.
+          setCustomSession(response.data?.session); //todo: type error as I have set the ApiResponse type of data: any, do change.
         }
       } catch (error) {
         console.error("error while getting session from backend ", error);
@@ -37,13 +39,13 @@ const useGetSession = () => {
     } else {
       setloadingWhileGettingSession(false);
     }
-  }, [setCustomCookie, session]);
+  }, [setCustomSession, session]);
 
   return {
-    session: session || customCookie,
+    session: session || customSession,
     status: session
       ? status
-      : customCookie
+      : customSession
         ? "authenticated"
         : "unauthenticated",
     loadingWhileGettingSession,

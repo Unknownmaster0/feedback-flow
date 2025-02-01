@@ -2,7 +2,7 @@ import connectDb from "@/lib/db";
 import User from "@/models/models";
 import sendResponse from "@/utils/Response";
 
-export async function GET(req: Request) {
+export async function GET() {
   await connectDb();
 
   try {

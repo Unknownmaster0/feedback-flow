@@ -2,7 +2,7 @@ import connectDb from "@/lib/db";
 import sendResponse from "@/utils/Response";
 import User from "@/models/models";
 import mongoose from "mongoose";
-import { getSession } from "../get-messages/route";
+import { getSession } from "@/utils/getSession";
 
 export async function DELETE(req: Request) {
   const session = await getSession();

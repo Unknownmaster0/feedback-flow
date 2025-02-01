@@ -5,7 +5,7 @@ export default function ButtonComponent({
   onClickHandler,
 }: {
   text: string;
-  onClickHandler: any;
+  onClickHandler: () => void;
 }) {
   return (
     <button
