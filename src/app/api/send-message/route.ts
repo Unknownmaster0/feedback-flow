@@ -97,7 +97,9 @@ export async function POST(req: Request) {
                       fontWeight: "500";
                       fontSize: "small" ">
                       <div>
-                      Don't miss out! A new message is waiting for you in <strong>Incognito Feedback</strong>. Login and read your feeback.
+                      Don't miss out! A new message is waiting for you in <strong>
+                      ${process.env.SMTP_COMPANY}
+                      </strong>. Login and read your feeback.
                       </div>
                     </div>
                 </body>
