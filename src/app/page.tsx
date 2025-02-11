@@ -23,14 +23,13 @@ export default function Home() {
   const [users, setUsers] = useState<[userWithProfileUrl]>([
     { id: "", email: "", userName: "", profileUrl: "" },
   ]);
-  const [loadingWhileGettingUser, setLoadingWhileGettingUser] = useState(false);
+  const [loadingWhileGettingUser, setLoadingWhileGettingUser] = useState(true);
 
   const { toast } = useToast();
 
   useEffect(() => {
     (async () => {
       try {
-        setLoadingWhileGettingUser(true);
         const response = (
           await axios.get<ApiResonseInterface>(`/api/get-all-users`)
         ).data;
