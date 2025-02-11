@@ -81,7 +81,7 @@ const Navbar = () => {
             {process.env.NEXT_PUBLIC_SMTP_COMPANY}
           </span>
           <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight md:hidden">
-            IF
+            {process.env.NEXT_PUBLIC_COMPANY_SHORT}
           </span>
         </Link>
         {isSendMessagePage ? (
