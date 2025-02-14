@@ -7,9 +7,6 @@ import ButtonComponent from "./ButtonComponent";
 import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import useGetSession from "@/hooks/useGetSession";
-import { Loader2 } from "lucide-react";
-import axios from "axios";
-import { ApiResonseInterface } from "@/types/ApiResponse";
 import { useToast } from "@/hooks/use-toast";
 import {
   Menubar,
@@ -19,13 +16,13 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { SessionPayload } from "@/types/definitions";
 import Link from "next/link";
+import { Session } from "next-auth";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isSendMessagePage, setIsSendMessagePage] = useState(false);
-  const [serverSession, setServerSession] = useState<SessionPayload | null>(
+  const [serverSession, setServerSession] = useState<Session | null>(
     null
   );
   const [, setUserDropDownMenu] = useState(false);
