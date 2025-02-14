@@ -31,27 +31,28 @@ const Navbar = () => {
   const [, setUserDropDownMenu] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
-  const { session, loadingWhileGettingSession } = useGetSession();
-
-  // console.log("server session: ", serverSession);
+  const { session } = useGetSession();
 
   useEffect(() => {
     setIsSendMessagePage(pathname.startsWith("/u/"));
   }, [setIsSendMessagePage, pathname]);
 
   useEffect(() => {
-    if (session && session.user && session.user.id) {
-      setServerSession(session as SessionPayload);
+    if (!session) {
+      return;
     }
-  }, [session]); //todo: correct the type error later.
+    if (session && session.user && session.user.id) {
+      setServerSession(session); //todo: correct the type here.
+    }
+  }, [session, setServerSession]); //todo: correct the type error later.
 
   async function onClickHandler() {
     try {
-      const _response = (
-        await axios.delete<ApiResonseInterface>(`/api/delete-session`)
-      ).data;
+      // const _response = (
+      //   await axios.delete<ApiResonseInterface>(`/api/delete-session`)
+      // ).data;
+      // // console.log(response);
       setServerSession(null);
-      // console.log(response);
       const data = await signOut({
         redirect: false,
         callbackUrl: "/signin",
@@ -90,36 +91,26 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            {loadingWhileGettingSession ? (
-              <>
-                <Loader2 className="animate-spin" /> Please Wait
-              </>
-            ) : (
-              <div>
-                <div className="flex items-center md:order-2 space-x-3 md:space-x-3">
-                  {serverSession && serverSession.user ? (
-                    <>
-                      <div className="space-x-10" onClick={showList}>
-                        <MenuBar
-                          text={`Welcome ${serverSession.user.userName}`}
-                        />
-                      </div>
-                      <ButtonComponent
-                        text={"SIGN OUT"}
-                        onClickHandler={onClickHandler}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <ButtonComponent
-                        text={"SIGN IN"}
-                        onClickHandler={() => router.push("/signin")}
-                      />
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
+            <div className="flex items-center md:order-2 space-x-3 md:space-x-3">
+              {serverSession && serverSession.user ? (
+                <>
+                  <div className="space-x-10" onClick={showList}>
+                    <MenuBar text={`Welcome ${serverSession.user.userName}`} />
+                  </div>
+                  <ButtonComponent
+                    text={"SIGN OUT"}
+                    onClickHandler={onClickHandler}
+                  />
+                </>
+              ) : (
+                <>
+                  <ButtonComponent
+                    text={"SIGN IN"}
+                    onClickHandler={() => router.push("/signin")}
+                  />
+                </>
+              )}
+            </div>
           </>
         )}
       </div>

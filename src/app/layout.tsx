@@ -4,7 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
-import CustomSessionProvider from "@/context/CustomsessionProvider";
+// import CustomSessionProvider from "@/context/CustomsessionProvider";
 import { Separator } from "@/components/ui/separator";
 
 const geistSans = Geist({
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <AuthProvider>
-      <CustomSessionProvider>
+      {/* <CustomSessionProvider> */}
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -40,7 +40,7 @@ export default function RootLayout({
             <Toaster />
           </body>
         </html>
-      </CustomSessionProvider>
+      {/* </CustomSessionProvider> */}
     </AuthProvider>
   );
 }

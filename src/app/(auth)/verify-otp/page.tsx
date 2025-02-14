@@ -68,8 +68,8 @@ const VerifyForm = ({
           variant: "destructive",
         });
       }
-
-      router.push(`/dashboard`);
+      //* sending the user to the login page, if successful verification.
+      router.push(`/signin`);
       toast({
         title: "Response",
         description: response.message,

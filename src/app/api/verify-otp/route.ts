@@ -1,5 +1,5 @@
 import connectDb from "@/lib/db";
-import { createSession } from "@/lib/session";
+// import { createSession } from "@/lib/session";
 import User from "@/models/models";
 import sendResponse from "@/utils/Response";
 import { log } from "console";
@@ -76,15 +76,15 @@ export async function POST(req: Request) {
       );
     }
     // finally when user reach before expiry time and correct otp, then verify the user
-    user.isVerified = true;
+    user.isVerified = true; //* setting that user is verified.
     await user.save();
 
-    const session = await createSession(
-      user._id as string,
-      user.userName,
-      user.isAcceptingMessage,
-      user.isVerified
-    );
+    // const session = await createSession(
+    //   user._id as string,
+    //   user.userName,
+    //   user.isAcceptingMessage,
+    //   user.isVerified
+    // );
 
     return sendResponse(
       {
@@ -92,9 +92,10 @@ export async function POST(req: Request) {
         message: "Account verified successfully",
       },
       200,
-      {
-        "Set-Cookie": `session-token=${session}; Path=/; HttpOnly; Max-Age=86400; SameSite=Strict`,
-      }
+      //* removing the step for setting the cookie after successful signup of user
+      // {
+      //   "Set-Cookie": `session-token=${session}; Path=/; HttpOnly; Max-Age=86400; SameSite=Strict`,
+      // }
     );
   } catch (error) {
     log("error while verifying otp from database ", error);
