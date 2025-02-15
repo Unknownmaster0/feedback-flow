@@ -1,0 +1,14 @@
+services:
+  nextjs:
+    container_name: hidemsg
+    ports:
+      - "3000:3000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:./nextapp
+      - /app/node_modules
+
+volumes:
+  app:
