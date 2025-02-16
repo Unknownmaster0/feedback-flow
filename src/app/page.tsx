@@ -92,11 +92,11 @@ export default function Home() {
 function UserProfileUrl({ user }: { user: userWithProfileUrl }) {
   return (
     <div className="w-full flex items-center lg:space-x-4 pl-5 pb-4">
-      <span className="font-extralight text-sm border shadow-md">
+      <span className="font-extralight text-sm shadow-md sm:p-2 rounded-md">
         {user.userName}
       </span>
       <Input
-        value={`${window.location.protocol}://${window.location.host}${user.profileUrl}`}
+        value={`${window.location.protocol}//${window.location.host}${user.profileUrl}`}
         disabled
         type="text"
         className="p-4 w-1/2"

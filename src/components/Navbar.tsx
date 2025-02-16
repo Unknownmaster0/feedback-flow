@@ -22,9 +22,7 @@ import { Session } from "next-auth";
 const Navbar = () => {
   const pathname = usePathname();
   const [isSendMessagePage, setIsSendMessagePage] = useState(false);
-  const [serverSession, setServerSession] = useState<Session | null>(
-    null
-  );
+  const [serverSession, setServerSession] = useState<Session | null>(null);
   const [, setUserDropDownMenu] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
@@ -75,12 +73,13 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
           <FontAwesomeIcon icon={faEnvelopeOpenText} className="lg:text-2xl" />
-          <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight hidden md:flex">
+          <span className="self-center sm:text-lg md:text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight hidden md:flex">
             {process.env.NEXT_PUBLIC_SMTP_COMPANY}
           </span>
-          <span className="self-center text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight md:hidden">
+          {/* No need of adding the short company name, just adjusted the above css only */}
+          {/* <span className="self-center sm:text-lg font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight md:hidden">
             {process.env.NEXT_PUBLIC_COMPANY_SHORT}
-          </span>
+          </span> */}
         </Link>
         {isSendMessagePage ? (
           <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-900 sm:font-bold">

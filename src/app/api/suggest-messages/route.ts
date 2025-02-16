@@ -1,34 +1,55 @@
-// import { openai } from "@ai-sdk/openai";
-// import { streamText } from "ai";
+import { client } from "@/utils/connectAi";
+import sendResponse from "@/utils/Response";
 
-// // Allow streaming responses up to 30 seconds
-// export const maxDuration = 10;
+const prompt = `Generate three positive feedback messages for a user, ensuring that each message is encouraging and uplifting. The messages should not contain any abusive, demotivating, self-down, or negative words. Each message should include positive language and may include motivational sentiments. Separate each message with a pipe (|)."
 
-// export async function POST() {
-//   const prompt =
-//     "Generate a list of three open-ended and engaging questions suitable for a diverse audience on an anonymous social messaging platform. Each question should be formatted as a single string and separated by '||'. The questions should avoid personal or sensitive topics and instead focus on universal themes that encourage friendly interaction. Aim for questions that are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment. For example, you might consider themes like hobbies, aspirations, or simple joys in life. Your output should look like this: 'What's a hobby you've recently started? || If you could have dinner with any historical figure, who would it be? || What's a simple thing that makes you happy?'.";
+Example Output: "Your contributions are truly valuable and make a difference! | Keep up the great work; your efforts are inspiring! | You have a wonderful ability to uplift those around you; continue shining bright!`;
 
-//   const result = streamText({
-//     model: openai("gpt-4o"),
-//     prompt,
-//   });
+export async function GET() {
+  try {
+    const stream = await client.v2.chatStream({
+      model: "command-r-plus-08-2024",
+      messages: [
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+    });
 
-//   const finalMessage = result.toDataStreamResponse();
-//   console.log(finalMessage);
-//   return Response.json(
-//     {
-//       success: true,
-//       message: finalMessage,
-//     },
-//     { status: 200 }
-//   );
-// }
-export async function POST() {
-  return Response.json(
-    {
-      success: true,
-      message: "from suggest-message",
-    },
-    { status: 200 }
-  );
+    const encoder = new TextEncoder();
+    const readableStream = new ReadableStream({
+      async start(controller) {
+        for await (const chatEvent of stream) {
+          if (chatEvent.type === "content-delta") {
+            const text = chatEvent.delta?.message?.content?.text;
+            if (text) {
+              controller.enqueue(encoder.encode(text));
+            }
+          }
+        }
+        controller.close();
+      },
+    });
+
+    return sendResponse(
+      { success: true, message: "Generated text" },
+      200,
+      new Headers({
+        "Content-Type": "text/plain",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      }),
+      readableStream
+    );
+  } catch (error) {
+    console.log("error while getting the message from ai", error);
+    return sendResponse(
+      {
+        success: false,
+        message: "error while getting the message from ai",
+      },
+      500
+    );
+  }
 }

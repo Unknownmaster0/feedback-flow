@@ -22,9 +22,15 @@ const ApiResponse = ({
 const sendResponse = (
   response: ApiResonseInterface,
   status: number,
-  headers?: HeadersInit
+  headers?: HeadersInit,
+  stream?: ReadableStream
 ) => {
-  const res = NextResponse.json(ApiResponse(response), { status });
+  let res;
+  if(stream) {
+    res = new NextResponse(stream, {status});
+  }else {
+    res = NextResponse.json(ApiResponse(response), { status });
+  }
   //* setting the header to the response if it is present to set the cookie to browser.
   if (headers) {
     Object.entries(headers).forEach(([key, val]) => {

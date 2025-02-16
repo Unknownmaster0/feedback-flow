@@ -8,6 +8,8 @@ import useGetSession from "@/hooks/useGetSession";
 import { MessageInterface } from "@/models/models";
 import { ApiResonseInterface } from "@/types/ApiResponse";
 import { isAcceptingMessageSchema } from "@/validationSchema/isAcceptingMessageSchema";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
@@ -151,13 +153,34 @@ const Dashboard = () => {
     setMessages((prevMsg) => prevMsg.filter((msg) => msg._id != msgId));
   };
 
+  const copyToClipboard = (value: string) => {
+    console.log("copyToClipboard", value);
+    navigator.clipboard.writeText(value);
+  };
+
   if (status === "unauthenticated" || !session || !session.user) {
     return <div>Please Login</div>;
   }
 
+  const profileURL: string = `${window.location.protocol}//${window.location.host}/u/${session.user.userName}`;
+
   return (
     <>
       <Separator className="" />
+      <div className="text-normal mt-2 space-x-5 md:space-x-7 pl-5 shadow-sm flex items-center">
+        PROFILE URL:<span className="space-x-1 sm:space-x-2"></span>
+        <input
+          type="text"
+          value={profileURL}
+          disabled
+          className="min-w-[20rem] max-w-[30rem] bg-gray-500 text-center rounded-lg focus:border-none cursor-not-allowed"
+        />
+        <FontAwesomeIcon
+          icon={faCopy}
+          className="text-xl text-zinc-200 bg-green-900 rounded-full p-2 cursor-pointer"
+          onClick={() => copyToClipboard(profileURL)}
+        />
+      </div>
       <form
         onSubmit={form.handleSubmit(toggleIsAcceptingMessage)}
         className="sm:p-2 lg:p-4 text-lg"
