@@ -246,7 +246,9 @@ const UserMessageInterface = () => {
                   ))}
                 </div>
                 <p className="text-slate-950 font-medium rounded-sm inline-block">
-                  <span className="text-red-900 font-bold">NOTE: </span>Click on messages to paste it to message box</p>
+                  <span className="text-red-900 font-bold">NOTE: </span>Click on
+                  messages to paste it to message box
+                </p>
               </div>
             </div>
           ) : (

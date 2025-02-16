@@ -154,8 +154,11 @@ const Dashboard = () => {
   };
 
   const copyToClipboard = (value: string) => {
-    console.log("copyToClipboard", value);
     navigator.clipboard.writeText(value);
+    toast({
+      title: "Copy to clipboard",
+      description: "Copy to clipboard Successfully",
+    });
   };
 
   if (status === "unauthenticated" || !session || !session.user) {

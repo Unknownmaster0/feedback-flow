@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import useGetSession from "@/hooks/useGetSession";
 import { ApiResonseInterface } from "@/types/ApiResponse";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,6 +25,7 @@ export default function Home() {
     { id: "", email: "", userName: "", profileUrl: "" },
   ]);
   const [loadingWhileGettingUser, setLoadingWhileGettingUser] = useState(true);
+  const { session, status } = useGetSession();
 
   const { toast } = useToast();
 
@@ -40,7 +42,11 @@ export default function Home() {
             userName: user.userName,
             profileUrl: `/u/${user.userName}`,
           }));
-          setUsers(users);
+          const finalUser = users.filter(
+            (user: userPorotype) =>
+              session && user.userName !== session.user?.userName
+          );
+          setUsers(finalUser);
         } else {
           toast({
             title: "Invalid response",
