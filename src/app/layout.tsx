@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hide & Messages",
+  title: "Feedback Message",
   description: "Simple messaging-app where sender is hidden",
 };
 

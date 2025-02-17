@@ -47,11 +47,11 @@ const Navbar = () => {
       //   await axios.delete<ApiResonseInterface>(`/api/delete-session`)
       // ).data;
       // // console.log(response);
-      setServerSession(null);
       const data = await signOut({
         redirect: false,
         callbackUrl: "/signin",
       });
+      setServerSession(null);
       toast({
         title: "Information",
         description: "You are logged out!",
@@ -72,8 +72,11 @@ const Navbar = () => {
       {/* APP NAME BAR ON NAV-BAR */}
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
-          <FontAwesomeIcon icon={faEnvelopeOpenText} className="lg:text-2xl" />
-          <span className="self-center sm:text-lg md:text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-mono tracking-tight hidden md:flex">
+          <FontAwesomeIcon
+            icon={faEnvelopeOpenText}
+            className="text-lg sm:text-xl md:text-2xl lg:text-4xl"
+          />
+          <span className="self-center sm:text-lg md:text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-serif tracking-tight hidden md:flex">
             {process.env.NEXT_PUBLIC_SMTP_COMPANY}
           </span>
           {/* No need of adding the short company name, just adjusted the above css only */}

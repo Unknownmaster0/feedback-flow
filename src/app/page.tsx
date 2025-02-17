@@ -25,7 +25,7 @@ export default function Home() {
     { id: "", email: "", userName: "", profileUrl: "" },
   ]);
   const [loadingWhileGettingUser, setLoadingWhileGettingUser] = useState(true);
-  const { session, status } = useGetSession();
+  const { session } = useGetSession();
 
   const { toast } = useToast();
 
@@ -42,10 +42,12 @@ export default function Home() {
             userName: user.userName,
             profileUrl: `/u/${user.userName}`,
           }));
-          const finalUser = users.filter(
-            (user: userPorotype) =>
-              session && user.userName !== session.user?.userName
-          );
+          let finalUser = users;
+          if (session && session.user) {
+            finalUser = users.filter(
+              (user: userPorotype) => user.userName !== session.user?.userName
+            );
+          }
           setUsers(finalUser);
         } else {
           toast({
