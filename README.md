@@ -1,19 +1,66 @@
-#Todos of the project, which can be improved after the first time project get deployed or made full fledge.
+# Feedback Message
 
-1. ApiResponseInterface -> type of data should be checked correctly.
+## Description
+**Feedback Message** is a web application that allows users to send and receive feedback messages. The app provides an AI-suggested message feature that generates responses using an LLM model. Users can also control whether they want to receive feedback using a "Focus/Busy" toggle.
 
-2. getSession() -> should have the proper type of the returning payload(session)
+## Features
+- View all registered users on the homepage.
+- Send feedback messages to any user.
+- AI-suggested messages for easy responses.
+- User authentication for secure access.
+- View received feedback messages after logging in.
+- "Focus/Busy" mode to control feedback reception.
 
-3. when user signup successfully, the session comes in the cookie but the nav-bar doesn't updated, it requires a refresh to update the username -> use the 'sessions' in state variable such that changes will be considered by the React.
+## Tech Stack
+### Frontend
+- **Next.js** – React-based framework for server-side rendering and static site generation.
+- **Tailwind CSS** – For styling.
 
-4. Hydration error in the home page while loading the "profile url" of the users.
+### Backend
+- **MongoDB** – NoSQL database for storing user data and messages.
+- **Mongoose** – ORM for MongoDB to handle schema and queries.
+- **NextAuth.js** – Authentication handling.
+- **AI Integration** – Uses an LLM model to generate AI-suggested messages.
 
-5. when the user is not logged in and reaches the dashboard, must see the valid information or message.
+## How to Run Locally
+### Prerequisites
+Ensure you have the following installed:
+- **Node.js** (v14+ recommended)
+- **MongoDB** (local or cloud-based)
 
-6. add the next-auth features like signin with google.
+### Steps to Run
+1. **Clone the repository:**
+   ```sh
+   git clone <repo-url>
+   cd feedback-message
+   ```
+2. **Install dependencies:**
+   ```sh
+   yarn
+   ```
+3. **Set up environment variables:**
+   - Create a `.env` file in the root directory.
+   - Add the required variables:
+     ```env
+     MONGO_URI=your_mongodb_connection_string
+     NEXTAUTH_SECRET=your_nextauth_secret
+     AI_API_KEY=your_ai_model_api_key
+     ```
+4. **Run the development server:**
+   ```sh
+   yarn dev
+   ```
+   The app should now be running at **http://localhost:3000**.
 
-7. update the signup method, that is for the signup also you need to use the next-auth feature only. This will resolve all the session releated type error then.
+## Usage
+1. Open the homepage to see the list of users.
+2. Click on a user profile to send them feedback.
+3. Use the **"Get AI Suggested Message"** button for an AI-generated response.
+4. Log in to view the feedback you have received.
+5. Toggle **Focus/Busy** mode to enable or disable feedback reception.
 
-8. remove the custom inteface of session.
+## Author
+**Sagar Singh**
 
-last: check the css property for the dynamic nature of the app (web/mobile/tablet) based all.
+## License
+This project is licensed under the MIT License.
