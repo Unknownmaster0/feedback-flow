@@ -6,7 +6,9 @@ export async function GET() {
   await connectDb();
 
   try {
-    const allUsersFromDb = await User.find();
+    const allUsersFromDb = await User.find({
+      isVerified: true,
+    });
     const userWithSomePrameters = allUsersFromDb.map((user) => ({
       id: user._id,
       email: user.email,
