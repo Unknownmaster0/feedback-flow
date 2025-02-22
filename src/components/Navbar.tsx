@@ -74,9 +74,9 @@ const Navbar = () => {
         <Link href="/" className="flex items-center">
           <FontAwesomeIcon
             icon={faEnvelopeOpenText}
-            className="text-lg sm:text-xl md:text-2xl lg:text-4xl"
+            className="text-2xl lg:text-3xl"
           />
-          <span className="self-center sm:text-lg md:text-xl lg:text-3xl font-semibold whitespace-nowrap dark:text-white font-serif tracking-tight hidden md:flex">
+          <span className="self-center sm:text-lg md:text-xl lg:text-2xl font-semibold whitespace-nowrap dark:text-white font-serif tracking-tight hidden sm:flex">
             {process.env.NEXT_PUBLIC_SMTP_COMPANY}
           </span>
           {/* No need of adding the short company name, just adjusted the above css only */}
