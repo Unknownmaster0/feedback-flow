@@ -154,11 +154,19 @@ const Dashboard = () => {
   };
 
   const copyToClipboard = (value: string) => {
-    navigator.clipboard.writeText(value);
-    toast({
-      title: "Copy to clipboard",
-      description: "Copy to clipboard Successfully",
-    });
+    try {
+      navigator.clipboard.writeText(value);
+      toast({
+        title: "Copy to clipboard",
+        description: "Copy to clipboard Successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Copy to clipboard",
+        description: "failed to copy clipboard",
+        variant: "destructive",
+      });
+    }
   };
 
   if (status === "unauthenticated" || !session || !session.user) {
