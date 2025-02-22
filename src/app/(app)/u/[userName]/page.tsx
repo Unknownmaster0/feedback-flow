@@ -182,7 +182,7 @@ const UserMessageInterface = () => {
               <Loader2 className="animate-spin" />
             </div>
           ) : user ? (
-            <div className="space-y-2 sm:space-y-3 md:space-y-5 lg:space-y-6">
+            <div className="space-y-12 sm:space-y-14 md:space-y-20 lg:space-y-24">
               <div className="shadow-sm p-2">
                 <Form {...form}>
                   <form
