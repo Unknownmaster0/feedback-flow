@@ -81,13 +81,13 @@ export default function Home() {
   }
 
   return (
-    <div className="sm:p-3 lg:p-5">
+    <div className="pt-3 lg:pt-5">
       {loadingWhileGettingUser ? (
         <>
           <Loader2 className="animate-spin" /> Please Wait ...
         </>
       ) : (
-        <div>
+        <div className="first-line:space-y-1 sm:space-y-2 md:space-y-3">
           {users.map((user) => (
             <UserProfileUrl user={user} key={user.id} />
           ))}
@@ -99,15 +99,15 @@ export default function Home() {
 
 function UserProfileUrl({ user }: { user: userWithProfileUrl }) {
   return (
-    <div className="w-full flex items-center lg:space-x-4 pl-5 pb-4">
-      <span className="font-extralight text-sm shadow-md sm:p-2 rounded-md">
+    <div className="w-full flex items-center lg:space-x-4 pl-5 pb-4 space-x-2 md:space-x-3">
+      <span className="font-extralight text-sm shadow-md p-2 rounded-md text-center text-pretty">
         {user.userName}
       </span>
       <Input
         value={`${window.location.protocol}//${window.location.host}${user.profileUrl}`}
         disabled
         type="text"
-        className="p-4 w-1/2"
+        className="p-1 sm:p-2 md:p-4 w-1/2"
       />
       <a href={`${user.profileUrl}`} target="_blank">
         <FontAwesomeIcon icon={faArrowRight} />
