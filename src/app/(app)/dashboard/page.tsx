@@ -169,14 +169,14 @@ const Dashboard = () => {
 
   return (
     <>
-      <Separator className="" />
-      <div className="text-normal mt-2 space-x-5 md:space-x-7 pl-5 shadow-sm flex items-center">
+      <Separator className="w-screen" />
+      <div className="text-xs sm:text-base mt-2 space-x-5 md:space-x-7 pl-5 shadow-sm flex items-center pb-1 sm:pb-2">
         PROFILE URL:<span className="space-x-1 sm:space-x-2"></span>
         <input
           type="text"
           value={profileURL}
           disabled
-          className="min-w-[20rem] max-w-[30rem] bg-gray-500 text-center rounded-lg focus:border-none cursor-not-allowed"
+          className="min-w-[12rem] sm:min-w-[20rem] max-w-[30rem] bg-slate-700 text-center rounded-lg focus:border-none cursor-not-allowed text-[8px] sm:text-base text-zinc-300"
         />
         <FontAwesomeIcon
           icon={faCopy}
@@ -186,7 +186,7 @@ const Dashboard = () => {
       </div>
       <form
         onSubmit={form.handleSubmit(toggleIsAcceptingMessage)}
-        className="sm:p-2 lg:p-4 text-lg"
+        className="p-2 pl-4 sm:pl-7 text-lg"
       >
         <Controller
           name="isAcceptingMessage"
