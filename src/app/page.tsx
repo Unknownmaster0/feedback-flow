@@ -100,7 +100,7 @@ export default function Home() {
 function UserProfileUrl({ user }: { user: userWithProfileUrl }) {
   return (
     <div className="w-full flex items-center lg:space-x-4 pl-5 pb-4 space-x-2 md:space-x-3">
-      <span className="font-extralight text-sm shadow-md p-2 rounded-md text-center text-pretty">
+      <span className="font-extralight text-sm shadow-md p-2 rounded-md text-center text-pretty cursor-not-allowed">
         {user.userName}
       </span>
       <Input
