@@ -16,7 +16,7 @@ const connectDb = async () => {
   }
   try {
     const connectionResponse = await mongoose.connect(
-      process.env.MONGO_URI!
+      `${process.env.DB_URI}/${process.env.DB_NAME}`
     );
     connection.isConnected = connectionResponse.connections[0].readyState;
   } catch (error) {
