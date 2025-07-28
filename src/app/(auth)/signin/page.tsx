@@ -125,7 +125,7 @@ const Signinform = () => {
                   </Button>
                   <div className="text-center">
                     <span className="text-sm text-muted-foreground">
-                      Don't have an account?{" "}
+                      Don&apos;t have an account?{" "}
                       <Button
                         className="text-primary font-medium"
                         variant={"outline"}
