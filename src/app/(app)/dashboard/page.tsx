@@ -12,10 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
-import { Loader2 } from "lucide-react";
+import { Copy, Filter, Loader2, MessageSquare, RefreshCw } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   const [messages, setMessages] = useState<MessageInterface[]>([]);
@@ -84,7 +86,7 @@ const Dashboard = () => {
           if (refresh) {
             toast({
               title: "Refresh messages",
-              description: response.message,
+              description: "Get all latest messages successfully",
             });
           }
         } catch (error) {
@@ -234,15 +236,50 @@ const Dashboard = () => {
             Please Wait Message is loading
           </>
         ) : (
-          <>
-            {messages.map((message) => (
-              <MessageCard
-                msg={message}
-                key={message._id?.toString()}
-                onDeleteMessage={onDeleteMessage}
-              />
-            ))}
-          </>
+          <Card className="card-modern animate-slide-up">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-gradient">
+                    Recent Feedback Messages
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Anonymous feedback from your community
+                  </p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {messages.length === 0 ? (
+                <div className="text-center py-12">
+                  <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h4 className="text-lg font-semibold text-foreground mb-2">
+                    No messages yet
+                  </h4>
+                  <p className="text-muted-foreground mb-4">
+                    Share your profile URL to start receiving feedback!
+                  </p>
+                  <Button
+                    onClick={() => copyToClipboard(profileURL)}
+                    className="btn-gradient"
+                  >
+                    <Copy className="h-4 w-4 mr-2" />
+                    Copy Profile URL
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {messages.map((message) => (
+                    <MessageCard
+                      msg={message}
+                      key={message._id?.toString()}
+                      onDeleteMessage={onDeleteMessage}
+                    />
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
         )}
       </div>
     </>
