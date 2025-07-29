@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import signInZodSchema from "@/validationSchema/signinSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Lock, Mail } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -83,12 +83,15 @@ const Signinform = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input
-                            type="email"
-                            placeholder="user@gmail.com"
-                            {...field}
-                            className="border-slate-800"
-                          />
+                          <div className="relative">
+                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
+                            <Input
+                              type="email"
+                              placeholder="user@gmail.com"
+                              {...field}
+                              className="input-modern pl-10 pr-10"
+                            />
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -101,17 +104,24 @@ const Signinform = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="*********"
-                            {...field}
-                            className="border-slate-800"
-                          />
+                          <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
+                            <Input
+                              placeholder="*********"
+                              {...field}
+                              className="input-modern pl-10 pr-10"
+                            />
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={loading} className="btn-hero w-1/2 group">
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="btn-hero w-1/2 group"
+                  >
                     {loading ? (
                       <>
                         <Loader2 className="animate-spin" /> Please Wait

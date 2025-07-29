@@ -201,7 +201,11 @@ const Signupform = () => {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={loadingSubmit}>
+                  <Button
+                    type="submit"
+                    disabled={loadingSubmit}
+                    className="btn-hero w-1/2 group"
+                  >
                     {loadingSubmit ? (
                       <>
                         <Loader2 className="animate-spin h-4 w-4 mr-2" />

@@ -98,13 +98,18 @@ export default function Home() {
 }
 
 function UserProfileUrl({ user }: { user: userWithProfileUrl }) {
+  // Use a conditional check to ensure window is defined (client-side only)
+  const fullUrl = typeof window !== 'undefined' 
+    ? `${window.location.protocol}//${window.location.host}${user.profileUrl}`
+    : `${user.profileUrl}`;
+    
   return (
     <div className="w-full flex items-center lg:space-x-4 pl-5 pb-4 space-x-2 md:space-x-3">
       <span className="font-extralight text-sm shadow-md p-2 rounded-md text-center text-pretty cursor-not-allowed">
         {user.userName}
       </span>
       <Input
-        value={`${window.location.protocol}//${window.location.host}${user.profileUrl}`}
+        value={fullUrl}
         disabled
         type="text"
         className="p-1 sm:p-2 md:p-4 w-1/2"
