@@ -88,8 +88,6 @@ const UserMessagePage = () => {
     })();
   }, [userName, toast]);
 
-  console.log("user: ", user);
-
   // Merged send message logic
   const handleSendMessage = async () => {
     // Manual validation
