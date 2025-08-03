@@ -9,6 +9,7 @@ import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import SuggestionSkeleton from "@/components/SuggestionSkeleton";
 
 // Imports from new frontend code
 import { Label } from "@/components/ui/label";
@@ -494,8 +495,10 @@ const UserMessagePage = () => {
               </CardHeader>
               <CardContent>
                 {loadingAI ? (
-                  <div className="flex justify-center items-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  <div className="space-y-3">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <SuggestionSkeleton key={i} />
+                    ))}
                   </div>
                 ) : aiSuggestions.length === 0 ? (
                   <div className="text-center py-8">

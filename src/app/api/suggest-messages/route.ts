@@ -81,7 +81,7 @@ export async function GET() {
       readableStream
     );
   } catch (error) {
-    console.log("error while getting the message from ai", error);
+    // console.log("error while getting the message from ai", error);
     return sendResponse(
       {
         success: false,

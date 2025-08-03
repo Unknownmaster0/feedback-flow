@@ -21,7 +21,7 @@ export async function decrypt(session: string): Promise<SessionPayload | null> {
     });
     return payload as SessionPayload;
   } catch (error) {
-    console.log("Failed to verify session", error);
+    // console.log("Failed to verify session", error);
     throw new Error("Error while decrypting the session");
   }
 }

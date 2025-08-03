@@ -58,7 +58,7 @@ const Navbar = () => {
       });
       router.push(data.url);
     } catch (error) {
-      console.log(`error while deleting cookie from server`, error);
+      // console.log(`error while deleting cookie from server`, error);
     }
   }
 

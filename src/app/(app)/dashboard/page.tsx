@@ -1,6 +1,7 @@
 "use client";
 
 import MessageCard from "@/components/MessageCard";
+import MessageSkeleton from "@/components/MessageSkeleton";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import useGetSession from "@/hooks/useGetSession";
@@ -31,6 +32,7 @@ import {
   generateEmbedCode,
 } from "@/utils/export-data";
 // import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [messages, setMessages] = useState<MessageInterface[]>([]);
@@ -41,10 +43,9 @@ const Dashboard = () => {
     setloadingWhileToggleAcceptingMessage,
   ] = useState(false);
   const [exportingData, setExportingData] = useState(false);
-  const [selectedMessage, setSelectedMessage] =
-    useState<MessageInterface | null>(null);
   const messageRefs = useRef<Map<string, HTMLElement>>(new Map());
 
+  const router = useRouter();
   const { session, status } = useGetSession();
   const { toast } = useToast();
 
@@ -129,10 +130,14 @@ const Dashboard = () => {
   useEffect(() => {
     if (!session || !session.user) {
       // if user become log-out, then don't do anything
+      router.push("/signin");
       return;
     }
     fetchAllMessages(true); //* check here passing refresh=true option to see the toast
     fetchIsAcceptingMessage();
+
+    // clean logic here
+    return () => {};
   }, [session, setMessages, fetchAllMessages, fetchIsAcceptingMessage]);
 
   // toggle-isAcceptingMessage
@@ -211,12 +216,32 @@ const Dashboard = () => {
     }
   };
 
-  if (status === "unauthenticated" || !session || !session.user) {
-    return <div>Please Login</div>;
-    // return redirect('/signin');
-  }
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/signin");
+    }
+  }, [status, router]);
 
-  const profileURL: string = `${window.location.protocol}//${window.location.host}/u/${session.user.userName}`;
+  // if (status === "loading") {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen">
+  //       <Loader2 className="animate-spin" />
+  //     </div>
+  //   );
+  // }
+
+  // if (status === "unauthenticated" || !session || !session.user) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen">
+  //       <Loader2 className="animate-spin" />
+  //     </div>
+  //   ); // Or a loading indicator
+  // }
+
+  const profileURL: string | null =
+    session &&
+    session.user &&
+    `${window.location.protocol}//${window.location.host}/u/${session.user.userName}`;
 
   return (
     <div className="min-h-screen bg-gradient-hero">
@@ -230,7 +255,7 @@ const Dashboard = () => {
                   Welcome back,{" "}
                 </span>
                 <span className="text-gradient bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent shadow-text">
-                  {session.user.userName}!
+                  {session && session.user.userName}!
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground">
@@ -266,7 +291,9 @@ const Dashboard = () => {
                   </div>
                   <div>
                     {/* <p className="text-3xl font-bold text-foreground">{user.totalMessages}</p> */}
-                    <p className="text-3xl font-bold text-foreground">{47}</p>
+                    <p className="text-3xl font-bold text-foreground">
+                      {messages && messages.length}
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       Total Feedback Received
                     </p>
@@ -319,7 +346,7 @@ const Dashboard = () => {
                     </span>
                   </div>
                   <Button
-                    onClick={() => copyToClipboard(profileURL)}
+                    onClick={() => copyToClipboard(profileURL as string)}
                     size="sm"
                     variant="outline"
                     className="h-8"
@@ -334,51 +361,41 @@ const Dashboard = () => {
                   </p>
                 </div>
                 {/* Focus Toggle */}
-                <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                  <div className="flex items-center space-x-2">
-                    <div
-                      className={`w-2 h-2 rounded-full ${session.user.isAcceptingMessage ? "bg-green-500" : "bg-red-500"}`}
-                    ></div>
-                    <span className="text-sm font-medium">
-                      {session.user.isAcceptingMessage ? "Focus Mode" : "Busy"}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <form
-                      onSubmit={form.handleSubmit(toggleIsAcceptingMessage)}
-                      className="p-2 pl-4 sm:pl-7 text-lg"
-                    >
-                      <Controller
-                        name="isAcceptingMessage"
-                        control={control}
-                        render={({ field }) => (
+                <div className="bg-muted/30 rounded-lg">
+                  <form
+                    onSubmit={form.handleSubmit(toggleIsAcceptingMessage)}
+                    className="p-2 pl-4 sm:pl-7 text-lg"
+                  >
+                    <Controller
+                      name="isAcceptingMessage"
+                      control={control}
+                      render={({ field }) => (
+                        <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
                           <div className="flex items-center space-x-2">
-                            {loadingWhileToggleAcceptingMessage ? (
-                              <>
-                                <Loader2 className="animate-spin" />
-                                Please Wait
-                              </>
-                            ) : (
-                              <>
-                                <Switch
-                                  id="isAcceptingMessage"
-                                  checked={field.value}
-                                  onCheckedChange={(value) => {
-                                    field.onChange(value);
-                                    handleSubmit(toggleIsAcceptingMessage)();
-                                  }}
-                                />
-                              </>
-                            )}
-
-                            <label htmlFor="isAcceptingMessage">
-                              {isAcceptingMessage ? "Focus" : "Busy"}
-                            </label>
+                            <div
+                              className={`w-2 h-2 rounded-full ${isAcceptingMessage ? "bg-green-500" : "bg-red-500"}`}
+                            ></div>
+                            <span className="text-sm font-medium">
+                              {isAcceptingMessage ? "Focus Mode" : "Busy"}
+                            </span>
                           </div>
-                        )}
-                      />
-                    </form>
-                  </div>
+                          <div className="flex items-center space-x-2">
+                            {loadingWhileToggleAcceptingMessage && (
+                              <Loader2 className="animate-spin h-4 w-4" />
+                            )}
+                            <Switch
+                              id="isAcceptingMessage"
+                              checked={field.value}
+                              onCheckedChange={(value) => {
+                                field.onChange(value);
+                                handleSubmit(toggleIsAcceptingMessage)();
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    />
+                  </form>
                 </div>
               </div>
             </CardContent>
@@ -467,10 +484,11 @@ const Dashboard = () => {
 
           <div className="lg:col-span-3">
             {isLoadingMsg ? (
-              <>
-                <Loader2 className="animate-spin size-5" />
-                Please Wait Message is loading
-              </>
+              <div className="space-y-4">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <MessageSkeleton key={i} />
+                ))}
+              </div>
             ) : (
               <Card className="card-modern animate-slide-up">
                 <CardHeader>
@@ -496,7 +514,7 @@ const Dashboard = () => {
                         Share your profile URL to start receiving feedback!
                       </p>
                       <Button
-                        onClick={() => copyToClipboard(profileURL)}
+                        onClick={() => copyToClipboard(profileURL as string)}
                         className="btn-gradient"
                       >
                         <Copy className="h-4 w-4 mr-2" />

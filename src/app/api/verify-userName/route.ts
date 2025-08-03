@@ -5,7 +5,7 @@ import sendResponse from "@/utils/Response";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const userName = searchParams.get("userName");
-  console.log('userName:', userName);
+  // console.log('userName:', userName);
   if (!userName) {
     return sendResponse({ success: false, message: "user Not exist" }, 404);
   }
@@ -35,7 +35,7 @@ export async function GET(req: Request) {
       200
     );
   } catch (error) {
-    console.error("error while getting user from db", error);
+    // console.error("error while getting user from db", error);
     return sendResponse(
       {
         success: false,

@@ -23,7 +23,7 @@ export async function GET() {
       200
     );
   } catch (error) {
-    console.log("internal sever error in get-all-users: ", error);
+    // console.log("internal sever error in get-all-users: ", error);
     return sendResponse(
       {
         success: false,

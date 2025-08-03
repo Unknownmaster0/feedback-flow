@@ -56,7 +56,7 @@ export async function GET() {
       200
     );
   } catch (error) {
-    console.log("error while getting user from db", error);
+    // console.log("error while getting user from db", error);
     return sendResponse(
       {
         success: false,
