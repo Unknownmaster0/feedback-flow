@@ -19,9 +19,9 @@ const sendEmail = async ({
     },
   });
 
-  console.log(process.env.SMPT_MAIL);
-  console.log(process.env.SMPT_APP_PASS);
-  console.log(process.env.SMTP_APP_COMPANY);
+  // console.log(process.env.SMPT_MAIL);
+  // console.log(process.env.SMPT_APP_PASS);
+  // console.log(process.env.SMTP_APP_COMPANY);
 
   const mailOptions = {
     from: `${process.env.SMTP_COMPANY} <${process.env.SMPT_MAIL}>`, // sender address
@@ -32,9 +32,9 @@ const sendEmail = async ({
   // console.log("mailOptions: ", mailOptions);
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log(info);
+    // console.log(info);
   } catch (error) {
-    console.log('error while sending mail to user: ',error);
+    // console.log('error while sending mail to user: ',error);
     throw new Error(`got error while sending mail to user`);
   }
 };

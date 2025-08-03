@@ -122,7 +122,7 @@ export async function POST(req: Request) {
       200
     );
   } catch (error) {
-    console.log("error while sending message in catch: ", error);
+    // console.log("error while sending message in catch: ", error);
     return sendResponse(
       {
         success: false,

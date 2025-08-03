@@ -13,7 +13,7 @@ export async function GET() {
       200
     );
   }
-  console.log("session cookie in get session: " + sessionCookie);
+  // console.log("session cookie in get session: " + sessionCookie);
 
   try {
     const session: SessionPayload | null = await decrypt(sessionCookie);
@@ -35,7 +35,7 @@ export async function GET() {
       200
     );
   } catch (error) {
-    console.log(`error while decrypting the session in get-session `, error);
+    // console.log(`error while decrypting the session in get-session `, error);
     return sendResponse(
       { success: false, message: "server error while decryting the session" },
       500

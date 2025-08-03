@@ -19,7 +19,7 @@ export async function GET(req: Request) {
     );
   }
   const userName = decodeURIComponent(queryUserName);
-  console.log("username: ", userName);
+  // console.log("username: ", userName);
   const userValidate = userNameZodSchema.safeParse(userName);
   if (!userValidate.success) {
     return sendResponse(
@@ -56,7 +56,7 @@ export async function GET(req: Request) {
       200
     );
   } catch (error) {
-    log("error while getting userName from db ", error);
+    // log("error while getting userName from db ", error);
     return sendResponse(
       {
         success: false,
