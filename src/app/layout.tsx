@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Feedback Message",
-  description: "Simple messaging-app where sender is hidden",
+  title: "Feedback Flow",
+  description: "Simple feedback collection where sender is hidden",
 };
 
 export default function RootLayout({
