@@ -1,4 +1,4 @@
-FROM node:21-alpine
+FROM node:22-alpine
 
 WORKDIR /nextapp
 
@@ -8,7 +8,7 @@ RUN yarn install
 
 COPY . .
 
-# RUN yarn build
+RUN yarn build
 
 EXPOSE 3000
 

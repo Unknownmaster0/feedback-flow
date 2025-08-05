@@ -543,20 +543,6 @@ export default function Home() {
             </p>
             <div className="flex space-x-4 mt-4 md:mt-0">
               <a
-                href={process.env.NEXT_PUBLIC_TWITTER_URI}
-                target="_blank"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <FontAwesomeIcon icon={faTwitter} className="h-5 w-5" />
-              </a>
-              <a
-                href={process.env.NEXT_PUBLIC_LINKEDIN_URI}
-                target="_blank"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <FontAwesomeIcon icon={faLinkedin} className="h-5 w-5" />
-              </a>
-              <a
                 href={process.env.NEXT_PUBLIC_GITHUB_URI}
                 target="_blank"
                 className="text-muted-foreground hover:text-primary transition-colors"

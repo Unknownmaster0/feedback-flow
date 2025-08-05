@@ -7,8 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:./nextapp
-      - /app/node_modules
+      - ./src:/nextapp/src
 
 volumes:
   app:

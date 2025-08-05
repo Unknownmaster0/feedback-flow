@@ -1,12 +1,11 @@
-# 🚀 Feedback-app
+# 🚀 FeedbackFlow
 
 <div align="center">
 
 **A modern feedback collection platform for developers, students, and professionals**
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-4F46E5?style=for-the-badge)](https://feedback-app-pi-two.vercel.app/)
-[![GitHub](https://img.shields.io/badge/📂_GitHub-181717?style=for-the-badge&logo=github)](https://github.com/Unknownmaster0/feedback-app/)
-
+[![GitHub](https://img.shields.io/badge/📂_GitHub-181717?style=for-the-badge&logo=github)](https://github.com/Unknownmaster0/feedback-flow)
 </div>
 
 ---
@@ -27,7 +26,7 @@
 
 ## 🎯 Overview
 
-**Feedback-app** is a comprehensive feedback collection platform designed to bridge the gap between feedback providers and recipients. Built with modern web technologies, it enables seamless anonymous feedback collection, AI-powered suggestions, and easy integration into personal portfolios and professional websites.
+**FeedbackFlow** is a comprehensive feedback collection platform designed to bridge the gap between feedback providers and recipients. Built with modern web technologies, it enables seamless anonymous feedback collection, AI-powered suggestions, and easy integration into personal portfolios and professional websites.
 
 ### 🎭 The Problem
 - Students and developers lack simple tools to collect user feedback on their projects
@@ -35,7 +34,7 @@
 - No easy way to showcase received feedback on personal websites
 
 ### 💡 The Solution
-Feedback-app provides a personalized feedback collection system with:
+FeedbackFlow provides a personalized feedback collection system with:
 - **One-click setup** - Get your unique feedback URL instantly
 - **AI-powered assistance** - Smart suggestions help users write better feedback
 - **Seamless integration** - Embeddable widgets for any website
@@ -100,8 +99,8 @@ Yarn or npm package manager
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Unknownmaster0/feedback-app.git
-   cd feedback-app
+   git clone https://github.com/Unknownmaster0/feedback-flow.git
+   cd feedback-flow
    ```
 
 2. **Install dependencies**
@@ -305,7 +304,7 @@ Copyright (c) 2025 Sagar Singh
 
 **⭐ Star this repo if you find it helpful!**
 
-**🔗 [Live Demo](https://feedback-app-pi-two.vercel.app/) | [Documentation](https://github.com/Unknownmaster0/feedback-app/blob/main/README.md) | [Report Bug](https://github.com/Unknownmaster0/feedback-app/issues)**
+**🔗 [Live Demo](https://feedback-app-pi-two.vercel.app/) | [Documentation](https://github.com/Unknownmaster0/feedback-flow/blob/main/README.md) | [Report Bug](https://github.com/Unknownmaster0/feedback-flow/issues)**
 
 *Made with ❤️ by [Sagar Singh](https://github.com/Unknownmaster0)*
 
