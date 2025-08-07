@@ -27,7 +27,7 @@ export const exportMessagesToPDF = async (
 
   // Add user info
   pdf.setFontSize(12);
-  pdf.text(`User: ${userInfo.username}`, 20, 35);
+  pdf.text(`User: ${userInfo.userName}`, 20, 35);
   pdf.text(`Export Date: ${new Date().toLocaleDateString()}`, 20, 45);
   pdf.text(`Total Messages: ${messages.length}`, 20, 55);
 
