@@ -160,6 +160,7 @@ const UserMessagePage = () => {
       }
 
       const data = await response.json();
+      console.log('data.suggestion: ', data.suggestion);
       setAiSuggestions(data.suggestions);
     } catch (error) {
       console.error("Error while fetching suggestions:", error);

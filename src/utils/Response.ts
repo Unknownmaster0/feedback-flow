@@ -25,20 +25,11 @@ const sendResponse = (
   headers?: HeadersInit,
   stream?: ReadableStream
 ) => {
-  let res;
-  if(stream) {
-    res = new NextResponse(stream, {status});
-  }else {
-    res = NextResponse.json(ApiResponse(response), { status });
+  if (stream) {
+    return new NextResponse(stream, { status, headers });
+  } else {
+    return NextResponse.json(ApiResponse(response), { status, headers });
   }
-  //* setting the header to the response if it is present to set the cookie to browser.
-  if (headers) {
-    Object.entries(headers).forEach(([key, val]) => {
-      res.headers.set(key, val as string);
-    });
-  }
-
-  return res;
 };
 
 export default sendResponse;

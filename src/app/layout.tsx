@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Feedback Flow",
-  description: "Simple feedback collection where sender is hidden",
+  description: "FeedbackFlow is a comprehensive feedback collection platform designed to bridge the gap between feedback providers and recipients. Built with modern web technologies, it enables seamless anonymous feedback collection, AI-powered suggestions, and easy integration into personal portfolios and professional websites.",
 };
 
 export default function RootLayout({
